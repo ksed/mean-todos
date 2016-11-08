@@ -20,7 +20,18 @@ router.get('/todos', function(req, res) {
     });
   });
 });
-router.get('/todos/:id', function(req, res) {});
+router.get('/todos/:id', function(req, res) {
+  Todo.find({_id: req.id}, function(err, foundTodo){
+    if(err) {
+      res.status(500).json({
+        err: err
+      });
+    }
+    res.status(200).json({
+      todo: foundTodo
+    });
+  });
+});
 router.post('/todos', function(req, res) {
   console.log(req.body);
   var todo = new Todo(req.body);
