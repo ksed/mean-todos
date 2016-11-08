@@ -8,5 +8,7 @@ var todoSchema = new Schema({
   }
 });
 
+// This creates a mongoose database connection
+// with a pre-defined schema for adding data
 var Todo = mongoose.model('Todo', todoSchema);
 module.exports = Todo;
