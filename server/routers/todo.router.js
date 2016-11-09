@@ -32,7 +32,7 @@ router.get('/todos/:id', function(req, res) {
     });
   });
 });
-router.get('/description/:desc', function(req, res) {
+router.get('/todos/description/:desc', function(req, res) {
   Todo.find({description: req.params.desc}, function(err, foundTodos) {
     if(err) {
       res.status(500).json({
