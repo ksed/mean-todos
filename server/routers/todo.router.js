@@ -8,8 +8,30 @@ router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({extended: true}));
 
 // Our 5 RESTfull routing methods
-router.get('/todos', function(req, res) {});
-router.get('/todos/:id', function(req, res) {});
+router.get('/todos', function(req, res) {
+  Todo.find({}, function(err, foundTodos){
+    if(err) {
+      res.status(500).json({
+        err: err
+      });
+    }
+    res.status(200).json({
+      todos: foundTodos
+    });
+  });
+});
+router.get('/todos/:id', function(req, res) {
+  Todo.find({_id: req.params.id}, function(err, foundTodo){
+    if(err) {
+      res.status(500).json({
+        err: err
+      });
+    }
+    res.status(200).json({
+      todo: foundTodo
+    });
+  });
+});
 router.post('/todos', function(req, res) {
   console.log(req.body);
   var todo = new Todo(req.body);
