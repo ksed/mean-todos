@@ -7,15 +7,15 @@ var bodyParser = require('body-parser');
 router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({extended: true}));
 
-// Our 5 RESTfull routing methods
+// Our 5 RESTfull routing methods, using returns to avoid two status calls
 router.get('/todos', function(req, res) {
   Todo.find({}, function(err, foundTodos) {
     if(err) {
-      res.status(500).json({
+      return res.status(500).json({
         err: err
       });
     }
-    res.status(200).json({
+    return res.status(200).json({
       todos: foundTodos
     });
   });
@@ -23,11 +23,11 @@ router.get('/todos', function(req, res) {
 router.get('/todos/:id', function(req, res) {
   Todo.find({_id: req.params.id}, function(err, foundTodo) {
     if(err) {
-      res.status(500).json({
+      return res.status(500).json({
         err: err
       });
     }
-    res.status(200).json({
+    return res.status(200).json({
       todo: foundTodo
     });
   });
@@ -35,11 +35,11 @@ router.get('/todos/:id', function(req, res) {
 router.get('/todos/description/:desc', function(req, res) {
   Todo.find({description: req.params.desc}, function(err, foundTodos) {
     if(err) {
-      res.status(500).json({
+      return res.status(500).json({
         err: err
       });
     }
-    res.status(200).json({
+    return res.status(200).json({
       todos: foundTodos
     });
   });
@@ -50,11 +50,11 @@ router.post('/todos', function(req, res) {
   todo.save(function(err) {
     if (err) {
       // throw err; don't do this
-      res.status(500).json({
+      return res.status(500).json({
         err: err
       });
     }
-    res.status(201).json({
+    return res.status(201).json({
       msg: 'successfully created todo'
     });
   });
@@ -63,11 +63,11 @@ router.post('/todos', function(req, res) {
 router.put('/todos/:id', function(req, res) {
   Todo.findOneAndUpdate({_id: req.params.id}, req.body, function(err, oldTodo) {
     if(err) {
-      res.status(500).json({
+      return res.status(500).json({
         err: err
       });
     }
-    res.status(200).json({
+    return res.status(200).json({
       msg: oldTodo
     });
   });
@@ -75,11 +75,11 @@ router.put('/todos/:id', function(req, res) {
 router.delete('/todos/:id', function(req, res) {
   Todo.findOneAndRemove({_id: req.params.id}, function(err, deletedTodo) {
     if(err) {
-      res.status(500).json({
+      return res.status(500).json({
         err: err
       });
     }
-    res.status(200).json({
+    return res.status(200).json({
       msg: deletedTodo
     });
   });
