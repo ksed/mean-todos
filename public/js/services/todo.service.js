@@ -38,10 +38,22 @@
           });
     }
     function updateOneTodo(index, todo) {
-
+      $http.put('/todos/'+todo._id, {description: todo.description})
+          .then(function(response) {
+            todos[index] = todo;
+          })
+          .catch(function(err) {
+            console.log(err);
+          });
     }
     function deleteOneTodo(index) {
-
+      $http.delete('/todos/'+todos[index]._id)
+          .then(function(response) {
+            todos.splice(index, 1);
+          })
+          .catch(function(err) {
+            console.log(err);
+          });
     }
   }
 }());
