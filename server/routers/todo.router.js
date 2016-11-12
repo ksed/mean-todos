@@ -45,7 +45,6 @@ router.get('/todos/description/:desc', function(req, res) {
   });
 });
 router.post('/todos', function(req, res) {
-  console.log(req.body);
   var todo = new Todo(req.body);
   todo.save(function(err) {
     if (err) {
