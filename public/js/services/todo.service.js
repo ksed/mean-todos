@@ -37,10 +37,10 @@
             console.log(err);
           });
     }
-    function updateOneTodo(index, todo) {
-      $http.put('/todos/'+todo._id, {description: todo.description})
+    function updateOneTodo(index, updatedTodo) {
+      $http.put('/todos/'+updatedTodo._id, {description: updatedTodo.description})
           .then(function(response) {
-            todos[index] = todo;
+            todos[index] = updatedTodo;
           })
           .catch(function(err) {
             console.log(err);
